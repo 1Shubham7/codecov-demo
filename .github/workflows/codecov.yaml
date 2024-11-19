@@ -8,7 +8,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
-        go-version: 'stable'
+        with:
+          go-version: 'stable'
       - name: download dependencies
         run: go mod download
       - name: test and get coverage
