@@ -1,0 +1,22 @@
+name: Test and upload coverage
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        go-version: 'stable'
+      - name: download dependencies
+        run: go mod download
+      - name: test and get coverage
+        run: go test -race -coverprofile=coverage.txt -covermode=atomic ./...
+
+      - name: upload coverage
+        uses: codecov/codecov-action@v4
+          with:
+            token: ${{ secrets.CODECOV_TOKEN }}
+
+
